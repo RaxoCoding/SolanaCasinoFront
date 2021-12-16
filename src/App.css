@@ -1,38 +1,179 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* COin Flip */
+
+#coin {
+    position: relative;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+}
+
+#coin div {
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
+}
+
+.side-a img {
+    text-align: center;
+    border: solid 5px #DC1FFF;
+    border-radius: 100%;
+}
+
+.side-b img {
+    text-align: center;
+    border: solid 5px #DC1FFF;
+    border-radius: 100%;
+}
+
+#coin {
+    transition: -webkit-transform 1s ease-in;
+    -webkit-transform-style: preserve-3d;
+}
+
+#coin div {
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+}
+
+.side-a {
+    z-index: 100;
+}
+
+.side-b {
+    -webkit-transform: rotateY(-180deg);
+}
+
+#coin.heads {
+    -webkit-animation: flipHeadsDelayed 7s ease-out forwards;
+    -moz-animation: flipHeadsDelayed 7s ease-out forwards;
+    -o-animation: flipHeadsDelayed 7s ease-out forwards;
+    animation: flipHeadsDelayed 7s ease-out forwards;
+}
+
+#coin.tails {
+    -webkit-animation: flipTailsDelayed 7s ease-out forwards;
+    -moz-animation: flipTailsDelayed 7s ease-out forwards;
+    -o-animation: flipTailsDelayed 7s ease-out forwards;
+    animation: flipTailsDelayed 7s ease-out forwards;
+}
+
+#coin.heads2 {
+    -webkit-transform: rotateY(540deg);
+    -moz-transform: rotateY(540deg);
+    transform: rotateY(540deg);
+}
+
+#coin.tails2 {
+    -webkit-transform: rotateY(720deg);
+    -moz-transform: rotateY(720deg);
+    transform: rotateY(720deg);
+}
+
+@keyframes flipHeadsDelayed {
+    0% {
+        -webkit-transform: rotateY(0);
+        -moz-transform: rotateY(0);
+        transform: rotateY(0);
+    }
+    75% {
+        -webkit-transform: rotateY(0);
+        -moz-transform: rotateY(0);
+        transform: rotateY(0);
+    }
+    100% {
+        -webkit-transform: rotateY(540deg);
+        -moz-transform: rotateY(540deg);
+        transform: rotateY(540deg);
+    }
+}
+
+@keyframes flipTailsDelayed {
+    0% {
+        -webkit-transform: rotateY(0);
+        -moz-transform: rotateY(0);
+        transform: rotateY(0);
+    }
+    75% {
+        -webkit-transform: rotateY(0);
+        -moz-transform: rotateY(0);
+        transform: rotateY(0);
+    }
+    100% {
+        -webkit-transform: rotateY(720deg);
+        -moz-transform: rotateY(720deg);
+        transform: rotateY(720deg);
+    }
+}
+
+.countdownTimer {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #DC1FFF;
+    margin: 25px;
+}
+
+.coinflip-div {
+    text-align: center;
+}
+
+.fadeIn {
+    animation: fadeIn 4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
