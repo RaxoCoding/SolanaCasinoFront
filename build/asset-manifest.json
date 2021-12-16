@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/solanacasinofront/static/css/main.357fd7e9.chunk.css",
+    "main.js": "/solanacasinofront/static/js/main.2ba76afe.chunk.js",
+    "main.js.map": "/solanacasinofront/static/js/main.2ba76afe.chunk.js.map",
+    "runtime-main.js": "/solanacasinofront/static/js/runtime-main.00d21587.js",
+    "runtime-main.js.map": "/solanacasinofront/static/js/runtime-main.00d21587.js.map",
+    "static/css/2.786ae0dd.chunk.css": "/solanacasinofront/static/css/2.786ae0dd.chunk.css",
+    "static/js/2.33ad270b.chunk.js": "/solanacasinofront/static/js/2.33ad270b.chunk.js",
+    "static/js/2.33ad270b.chunk.js.map": "/solanacasinofront/static/js/2.33ad270b.chunk.js.map",
+    "index.html": "/solanacasinofront/index.html",
+    "static/css/2.786ae0dd.chunk.css.map": "/solanacasinofront/static/css/2.786ae0dd.chunk.css.map",
+    "static/css/main.357fd7e9.chunk.css.map": "/solanacasinofront/static/css/main.357fd7e9.chunk.css.map",
+    "static/js/2.33ad270b.chunk.js.LICENSE.txt": "/solanacasinofront/static/js/2.33ad270b.chunk.js.LICENSE.txt",
+    "static/media/solanaLogo.0af56d5c.png": "/solanacasinofront/static/media/solanaLogo.0af56d5c.png",
+    "static/media/solanaLogoInvert.797fe01a.png": "/solanacasinofront/static/media/solanaLogoInvert.797fe01a.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.00d21587.js",
+    "static/css/2.786ae0dd.chunk.css",
+    "static/js/2.33ad270b.chunk.js",
+    "static/css/main.357fd7e9.chunk.css",
+    "static/js/main.2ba76afe.chunk.js"
+  ]
+}
