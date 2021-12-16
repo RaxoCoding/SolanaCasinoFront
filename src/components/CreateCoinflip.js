@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import SolanaLogo from './solanaLogo.png'
 import SolanaLogoInvert from './solanaLogoInvert.png'
 import Countdown from 'react-countdown';
-import { Button, Skeleton, Col, Row, Popover, List, Avatar, Divider, Modal, Radio, InputNumber } from 'antd';
+import { Button, Skeleton, Col, Row, Popover, List, Avatar, Divider, Modal, Radio, InputNumber, Input, Progress } from 'antd';
 
 
 const CreateCoinflip = (props) => {
-    const [coin, setCoin] = useState('0');
+    const [coin, setCoin] = useState('1');
     const [price, setPrice] = useState(1);
+    const [name, setName] = useState('Hello World!');
 
     const handleCoinChange = (e) => {
         setCoin(e.target.value);
@@ -17,16 +18,20 @@ const CreateCoinflip = (props) => {
         setPrice(e);
     };
 
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    };
+
     return (
         <>
             <Modal
-                title={"Coinflip " + props.price + " SOL"}
+                title={"Coinflip Creation"}
                 visible={props.visible}
                 onCancel={props.onCancel}
                 onOk={() => {props.onCreateFlip(
                     {
                         price: price,
-                        name: 'Test',
+                        name: name,
                         wallet: null,
                         coin: coin,
                     }
@@ -48,6 +53,14 @@ const CreateCoinflip = (props) => {
                         step="0.05"
                         stringMode
                     />
+                    <p style={{marginTop: '10px'}}>Coinflip Name:</p>
+                    <Input
+                        maxLength={12}
+                        style={{width: '125px'}}
+                        onChange={handleNameChange}
+                        value={name}
+                    />
+                    <Progress percent={props.transactionPercentage} status={props.transactionError ? 'exception' : 'none'} size="small"  />
             </div>
             </Modal>
         </>

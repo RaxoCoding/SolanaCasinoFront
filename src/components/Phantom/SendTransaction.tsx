@@ -83,13 +83,15 @@ const createTransferTransaction = async (price) =>
       lamports: (price * 1000000000),
     }),
   ]);
-const sendTransaction = async (transaction: Transaction, item, updateData, method) => {
+const sendTransaction = async (transaction: Transaction, item, updateData, setTransactionPercent, setTransactionError, method) => {
   if (transaction) {
     try {
+        setTransactionPercent(50);
         let { signature } = await provider.signAndSendTransaction(transaction);
         console.log(
           "Submitted transaction " + signature + ", awaiting confirmation"
         );
+        setTransactionPercent(75);
         await CONNECTION.confirmTransaction(signature);
         if(method === "add") {
           item.wallet = provider.publicKey?.toBase58();
@@ -99,15 +101,20 @@ const sendTransaction = async (transaction: Transaction, item, updateData, metho
         }
         updateData(item);
         console.log("Transaction " + signature + " confirmed");
+        setTransactionPercent(100);
     } catch (err) {
       console.warn(err);
       console.log("Error: " + JSON.stringify(err));
+      setTransactionError(true);
     }
+  } else {
+    setTransactionError(true);
   }
 };
-const sendTransferInstruction = async (item, updateData, method) => {
+const sendTransferInstruction = async (item, updateData, setTransactionPercent, setTransactionError, method) => {
     const transaction = await createTransferTransaction(item.price);
-    sendTransaction(transaction, item, updateData, method);
+    setTransactionPercent(25);
+    sendTransaction(transaction, item, updateData, setTransactionPercent, setTransactionError, method);
 };
 
 

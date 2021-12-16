@@ -2,7 +2,7 @@ import React from "react";
 import SolanaLogo from './solanaLogo.png'
 import SolanaLogoInvert from './solanaLogoInvert.png'
 import Countdown from 'react-countdown';
-import { Button, Skeleton, Col, Row, Popover, List, Avatar, Divider, Modal } from 'antd';
+import { Button, Skeleton, Col, Row, Popover, List, Avatar, Divider, Modal, Progress } from 'antd';
 
 
 const Coinflip = (props) => {
@@ -60,7 +60,7 @@ const Coinflip = (props) => {
                     <p class="countdownTimer"> Not Started </p>
                     <p> Join Against {props.wallet1} <br/> for {props.price} SOL</p>
                 </div>
-                
+                <Progress percent={props.transactionPercentage} status={props.transactionError ? 'exception' : 'none'} size="small"  />
             </Modal>
             </> : <>
             <Modal

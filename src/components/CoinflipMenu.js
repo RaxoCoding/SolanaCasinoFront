@@ -21,6 +21,8 @@ function CoinflipMenu() {
     const [data, setData] = useState([]);
     const [createVisibile, setCreateVisibile] = useState(false);
     const [needsUpdate, setNeedsUpdate] = useState(false);
+    const [transactionPercent, setTransactionPercent] = useState(0);
+    const [transactionError, setTransactionError] = useState(false);
 
     const loadNewData = () => {
         if (loading) {
@@ -60,7 +62,7 @@ function CoinflipMenu() {
 
     React.useEffect(() => {
       if(needsUpdate) {
-        var handle=setInterval(loadNewData,5000);    
+        var handle=setInterval(needsUpdate ? loadNewData : null ,5000);   //5 seconds
 
         return ()=>{
           clearInterval(handle);
@@ -115,9 +117,9 @@ function CoinflipMenu() {
     style={{
       marginBottom: '25px', marginTop: '-25px',
     }}
-    onClick={() => {setCreateVisibile(true)}}
+    onClick={() => {setCreateVisibile(true); setTransactionPercent(0); setTransactionError(false);}}
     >Create Coinflip</Button>
-    <CreateCoinflip visible={createVisibile} onCancel={() => {setCreateVisibile(false)}} onCreateFlip={(item) => {sendTransferInstruction(item, createCoinflip, 'add')}}/>
+    <CreateCoinflip transactionPercentage={transactionPercent} transactionError={transactionError} visible={createVisibile} onCancel={() => {setCreateVisibile(false)}} onCreateFlip={(item) => {sendTransferInstruction(item, createCoinflip, setTransactionPercent, setTransactionError, 'add')}}/>
     <div
       id="scrollableDiv"
       style={{
@@ -148,13 +150,14 @@ function CoinflipMenu() {
               {item.result == 'none' ||  item.state != 'finished' ? null :  item.result == 'heads' ? <img src={SolanaLogo} style={{width: '25px', marginRight: '5px'}} /> : <img src={SolanaLogoInvert} style={{width: '25px', marginRight: '5px'}} />}
               <Button 
               onClick={() => {
-                item.visible = true
+                setTransactionPercent(0); setTransactionError(false);
+                item.visible = true;
                 setData([...data])
                 setNeedsUpdate(true);
               }
               }
               >{item.state != 'open' ? 'Watch' : 'Join'}</Button>
-              <Coinflip coinflipFinish={() => {endCoinflip(item);}} coin={item.user1.coin} state={item.state} visible={item.visible} price={item.price} wallet1={item.user1.wallet} wallet2={item.user2.wallet} onCancel={() => {item.visible = false; setNeedsUpdate(false); setData([...data]);}} onJoin={() => {sendTransferInstruction(item, updateData, 'update')}} result={item.result}/>
+              <Coinflip transactionPercentage={transactionPercent} transactionError={transactionError} coinflipFinish={() => { setTimeout(() => {setNeedsUpdate(true); endCoinflip(item);}, 2000);}} coin={item.user1.coin} state={item.state} visible={item.visible} price={item.price} wallet1={item.user1.wallet} wallet2={item.user2.wallet} onCancel={() => {item.visible = false; setNeedsUpdate(false); setData([...data]);}} onJoin={() => {setNeedsUpdate(false); sendTransferInstruction(item, updateData, setTransactionPercent, setTransactionError, 'update')}} result={item.result}/>
               </div>
             </List.Item>
           )}
