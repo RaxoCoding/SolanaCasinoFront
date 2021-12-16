@@ -1,8 +1,7 @@
 {
     "name": "react-front",
     "version": "0.1.0",
-    "private": true,
-    "proxy": "http://localhost:8080",
+    "private": false,
     "dependencies": {
         "@ant-design/charts": "^1.2.10",
         "@ant-design/icons": "^4.7.0",
