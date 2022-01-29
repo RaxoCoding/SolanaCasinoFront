@@ -8,11 +8,39 @@ import {
   RobotOutlined
 } from '@ant-design/icons';
 import { Line } from '@ant-design/charts';
-import Logo from './solanaLogo.png'
+import Logo from './casinoLogo.png'
 
 const { Meta } = Card;
 
-function Account() {
+function Home() {
+  const [totalCoinflips, setTotalCoinflips] = useState(0);
+  const [totalDice, setTotalDice] = useState('0 SOL');
+  const [totalGambled, setTotalGambled] = useState('0 SOL');
+
+
+  const loadNewData = () => {
+    axios.get('https://SolanaCasinoServer.gomez0015.repl.co/getData')
+    .then(res => {
+      setTotalCoinflips(res.data[0].count);
+      setTotalDice(res.data[2].count);
+      setTotalGambled(res.data[1].count + ' SOL');
+    }).catch(err => {
+      console.error(err);
+    })
+  };
+
+  React.useEffect(() => {
+    loadNewData();
+  }, []);
+
+
+  React.useEffect(() => {
+    var handle=setInterval(loadNewData, 30000);    
+
+    return ()=>{
+        clearInterval(handle);
+    }
+  });
 
   const contentStyle = {
     height: '500px',
@@ -33,10 +61,14 @@ function Account() {
           </Col>
         </Row>
         <Row gutter={[16, 16]} style={{marginTop: "25px"}}>
-          <Col span={24}>  <Card> <Statistic title="Active Users" value={112893} /> <Statistic title="Total Gambled" value={'10,230 SOL'} /> <Rate disabled defaultValue={4} /></Card> </Col>
+          <Col span={24}>  <Card> 
+            <Statistic title="Total Coinflips" value={totalCoinflips} /> 
+            <Statistic title="Total Dice Games" value={totalDice} /> 
+            <Statistic title="Total Gambled" value={totalGambled} /> 
+          </Card> </Col>
         </Row>
     </div>
   );
 }
 
-export default Account;
+export default Home;

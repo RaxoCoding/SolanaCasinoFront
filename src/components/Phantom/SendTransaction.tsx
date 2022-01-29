@@ -59,8 +59,7 @@ const EXTERNAL_ADDRESS = new PublicKey(
   "2N8qxv4QAGiYe8m3Z2PmCo2SwQtYqKCmUEQj7WsCXuxp"
 );
 
-const provider = getProvider();
-
+var provider = getProvider();
 
 const createTransaction = async (instructions: TransactionInstruction[]) => {
   if (!provider.publicKey) {
@@ -96,10 +95,10 @@ const sendTransaction = async (transaction: Transaction, item, updateData, setTr
         if(method === "add") {
           item.wallet = provider.publicKey?.toBase58();
         } else if(method === "update") {
-          item.state = 'started';
+          item.state = 'starting';
           item.user2.wallet = provider.publicKey?.toBase58();
         }
-        updateData(item);
+        await updateData(item);
         console.log("Transaction " + signature + " confirmed");
         setTransactionPercent(100);
     } catch (err) {
@@ -112,9 +111,16 @@ const sendTransaction = async (transaction: Transaction, item, updateData, setTr
   }
 };
 const sendTransferInstruction = async (item, updateData, setTransactionPercent, setTransactionError, method) => {
-    const transaction = await createTransferTransaction(item.price);
-    setTransactionPercent(25);
-    sendTransaction(transaction, item, updateData, setTransactionPercent, setTransactionError, method);
+    if(provider == undefined) {
+      provider = getProvider();
+      const transaction = await createTransferTransaction(item.price);
+      setTransactionPercent(25);
+      sendTransaction(transaction, item, updateData, setTransactionPercent, setTransactionError, method);
+    } else {
+      const transaction = await createTransferTransaction(item.price);
+      setTransactionPercent(25);
+      sendTransaction(transaction, item, updateData, setTransactionPercent, setTransactionError, method);
+    }
 };
 
 

@@ -39,12 +39,21 @@ const PhantomSVG = () => (
   </svg>
 );
 
-const ConnectToPhantom = () => {
+const ConnectToPhantom = (props) => {
   const [phantom, setPhantom] = useState<Phantom | null>(null);
+  const [phantomError, setPhantomError] = useState(false);
 
   useEffect(() => {
     if ("solana" in window) {
       setPhantom(window["solana"]);
+    } else {
+      setTimeout(() => {
+        if ("solana" in window) {
+          setPhantom(window["solana"]);
+        } else {
+          setPhantomError(true);
+        }
+      }, 1500);
     }
   }, []);
 
@@ -52,10 +61,14 @@ const ConnectToPhantom = () => {
 
   useEffect(() => {
     phantom?.on("connect", () => {
+      const anyWindow: any = window;
+      const provider = anyWindow.solana;
+      props.setUserWallet(provider.publicKey?.toBase58());
       setConnected(true);
     });
 
     phantom?.on("disconnect", () => {
+      props.setUserWallet('none');
       setConnected(false);
     });
   }, [phantom]);
@@ -92,12 +105,12 @@ const ConnectToPhantom = () => {
   }
 
   return (
-    <a
-      href="https://phantom.app/"
-      target="_blank"
-    >
-      Get Phantom
-    </a>
+    <Button
+        icon={<Icon component={PhantomSVG} />}
+        onClick={() => {window.open('https://phantom.app/', '_blank')}}
+      >
+        {phantomError ? "Phantom Not Detected!" : "Trying to Find Phantom..."}
+    </Button>
   );
 };
 

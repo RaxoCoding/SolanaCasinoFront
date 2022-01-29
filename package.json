@@ -2,7 +2,6 @@
     "homepage": "http://gomez0015.github.io/SolanaCasinoFront",
     "name": "react-front",
     "version": "0.1.0",
-    "private": false,
     "dependencies": {
         "@ant-design/charts": "^1.2.10",
         "@ant-design/icons": "^4.7.0",
@@ -22,10 +21,14 @@
         "node-telegram-bot-api": "^0.54.0",
         "nodejs-web-scraper": "^6.0.1",
         "react": "^17.0.2",
+        "react-chat-engine": "^1.11.22",
         "react-countdown": "^2.3.2",
+        "react-device-detect": "^2.1.2",
         "react-dom": "^17.0.2",
         "react-infinite-scroll-component": "^6.1.0",
         "react-scripts": "4.0.3",
+        "stream-chat": "^5.0.1",
+        "stream-chat-react": "^6.12.2",
         "web-vitals": "^1.1.2"
     },
     "scripts": {
